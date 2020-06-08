@@ -3,15 +3,16 @@
 const express = require('express');
 const app = express();
 
-require('dontenv').config();
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
 app.get('/', (request, response) => {
   console.log('Am I on the console?');
-  response.send('Am I on the broswer?');
+  response.status(200).send('Am I on the browser?');
 });
 
 app.listen(PORT, () =>{
   console.log(`listening on ${PORT}.`);
-})
+});
+
