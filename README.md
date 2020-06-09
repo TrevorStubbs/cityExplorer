@@ -117,22 +117,24 @@ _Your `README.md` must include:_
 ```md
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+This is a site that allows a user to enter in a city and it will return a list of information about the city
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+This is the server side program. To use you must go to [City Explorer Front End](https://codefellows.github.io/code-301-guide/curriculum/city-explorer-app/front-end/) and enter in your server info. 
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+This project is build using JavaScript, Node.js, Express, DOTENV, CORS and Heroku.
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.
+01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credits and Collaborations
+- Andrew Smith
+
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+
 ```
 
 ## Submission Instructions
@@ -194,3 +196,7 @@ Start time: 18:00
 Finish time: 18:15
 
 Actual time needed to complete: 15 minutes
+
+## Lab 07 -
+
+- ![Whiteboard layout](images/lab07whiteboard.png)

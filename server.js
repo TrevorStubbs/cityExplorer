@@ -29,7 +29,7 @@ app.get('/location', (request, response) => {
     // get the location json data
     let geoData = require('./data/location.json');
 
-    // Pass the requested city throught the constructor
+    // Pass the requested city through the constructor
     let returnObj = new Location(search_query, geoData[0]);
 
     //return the data to the front end
@@ -43,6 +43,8 @@ app.get('/location', (request, response) => {
 // TODO - update this for more than 1 location
 app.get('/weather', (request, response) => {
   try{
+    // This will get the city.
+    let search_query = request.query.search_query;
     // get the weather json data
     let weatherData = require('./data/weather.json');
 
@@ -59,6 +61,10 @@ app.get('/weather', (request, response) => {
     errorMessage(response, err);
   }
 });
+
+app.get('*', (request, response) => {
+  response.status(404).send('sorry, this route does not exist');
+})
 
 // Error message 
 const errorMessage = (response, err) => {
