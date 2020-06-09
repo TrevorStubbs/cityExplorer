@@ -22,35 +22,49 @@ app.get('/', (request, response) => {
 
 // Location route
 app.get('/location', (request, response) => {
-  // get the city the user requested
-  let search_query = request.query.city;
+  try{
+    // get the city the user requested
+    let search_query = request.query.city;
 
-  // get the location json data
-  let geoData = require('./data/location.json');
-  
-  // Pass the requested city throught the constructor
-  let returnObj = new Location(search_query, geoData[0]);
-  
-  //return the data to the front end
-  response.status(200).send(returnObj);
+    // get the location json data
+    let geoData = require('./data/location.json');
+
+    // Pass the requested city throught the constructor
+    let returnObj = new Location(search_query, geoData[0]);
+
+    //return the data to the front end
+    response.status(200).send(returnObj);
+  } catch(err){
+    errorMessage(response, err);
+  }
 });
 
 // Weather Route
 // TODO - update this for more than 1 location
 app.get('/weather', (request, response) => {
-  // get the weather json data
-  let weatherData = require('./data/weather.json');
+  try{
+    // get the weather json data
+    let weatherData = require('./data/weather.json');
 
-  // Empty array to store the weather info
-  let returnArray = [];
-  // push the weather info (as an object) into the the array
-  returnArray.push(new Weather(weatherData.data[0]));
-   
-  // Return the array to the front
-  response.status(200).send(returnArray);
-})
+    // Empty array to store the weather info
+    let returnArray = [];
+    // push the weather info (as an object) into the the array
+    returnArray.push(new Weather(weatherData.data[0]));
 
-// Location Construtor function (searchQuery is the city we are looking for)
+    // Return the array to the front
+    response.status(200).send(returnArray);
+  } catch(err){
+    errorMessage(response, err);
+  }
+});
+
+// Error message 
+const errorMessage = (response, err) => {
+  console.log('ERROR', err);
+  response.status(500).send('Something went wrong.');
+}
+
+// Location Constructor function (searchQuery is the city we are looking for)
 function Location(searchQuery, obj){
   this.search_query = searchQuery;
   this.formatted_query = obj.display_name;
@@ -59,7 +73,7 @@ function Location(searchQuery, obj){
 }
 
 // Weather constructor function
-//TODO- will probably need to pass in the city info as an arg tomorrow
+//TODO - will probably need to pass in the city info as an arg tomorrow
 function Weather(obj){
   this.forecast = obj.weather.description;
   this.time = new Date(obj.valid_date).toDateString();

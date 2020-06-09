@@ -182,8 +182,8 @@ Number and name of feature: Error Handling
 
 Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 18:00
 
-Finish time: _____
+Finish time: 18:15
 
-Actual time needed to complete: _____
+Actual time needed to complete: 15 minutes
