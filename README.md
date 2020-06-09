@@ -216,14 +216,14 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 15:10
 
-Finish time: _____
+Finish time: 15:50
 
-Actual time needed to complete: _____
+Actual time needed to complete: 40 minutes
 Number and name of feature: Weather API
 
 Estimate of time needed to complete: 1 hour 
 
-Start time: _____
+Start time: 16:00
 
 Finish time: _____
 

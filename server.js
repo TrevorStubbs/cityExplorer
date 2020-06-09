@@ -47,18 +47,18 @@ app.get('/location', (request, response) => {
 // TODO - update this for more than 1 location
 app.get('/weather', (request, response) => {
   try{
-    // This will get the city.
     let search_query = request.query.search_query;
-    // get the weather json data
-    let weatherData = require('./data/weather.json');
 
-    // Use map to put the weather objects into output array.
-    const returnArray = weatherData.data.map(value => {
-      return new Weather(value);
-    });
+    let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${search_query}&key=${process.env.WEATHER_API_KEY}`
 
-    // Return the array to the front
-    response.status(200).send(returnArray);
+    superagent.get(url)
+      .then(superAgentOutput => {
+        const returnArray = superAgentOutput.body.data.map(value => {
+          return new Weather(value);
+        });
+        response.status(200).send(returnArray);
+      }).catch(err => console.log(err));
+
   } catch(err){
     errorMessage(response, err);
   }
@@ -69,7 +69,7 @@ app.get('*', (request, response) => {
   response.status(404).send('sorry, this route does not exist');
 })
 
-// Error message 
+// Error message
 const errorMessage = (response, err) => {
   console.log('ERROR', err);
   response.status(500).send('Something went wrong.');
@@ -87,7 +87,7 @@ function Location(searchQuery, obj){
 //TODO - will probably need to pass in the city info as an arg tomorrow
 function Weather(obj){
   this.forecast = obj.weather.description;
-  this.time = new Date(obj.valid_date).toDateString();
+  this.time = new Date(obj.datetime).toDateString();
 }
 
 // Start the server
