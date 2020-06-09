@@ -210,6 +210,9 @@ Start time: 14:55
 Finish time: 15:05
 
 Actual time needed to complete: 10 minutes
+
+---
+
 Number and name of feature: Locations API
 
 Estimate of time needed to complete: 1 hour
@@ -219,15 +222,21 @@ Start time: 15:10
 Finish time: 15:50
 
 Actual time needed to complete: 40 minutes
+
+---
+
 Number and name of feature: Weather API
 
 Estimate of time needed to complete: 1 hour 
 
 Start time: 16:00
 
-Finish time: _____
+Finish time: 16:30
 
-Actual time needed to complete: _____
+Actual time needed to complete: 30 minutes
+
+---
+
 Number and name of feature: Trails API
 
 Estimate of time needed to complete: 1 hour
