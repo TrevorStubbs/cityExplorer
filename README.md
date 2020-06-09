@@ -148,6 +148,7 @@ _Your `README.md` must include:_
 
 
 ## Features
+
 Number and name of feature: Repo Setup
 
 Estimate of time needed to complete: 1 hour
@@ -157,6 +158,8 @@ Start time: 13:00
 Finish time: 16:10
 
 Actual time needed to complete: 1.2hours
+
+---
 
 Number and name of feature: Location Data Linked
 
@@ -168,6 +171,8 @@ Finish time: 16:50
 
 Actual time needed to complete: 35 minutes
 
+---
+
 Number and name of feature: Weather Data Linked
 
 Estimate of time needed to complete: 30 minutes
@@ -177,6 +182,8 @@ Start time: 16:55
 Finish time: 18:00
 
 Actual time needed to complete: 1.1 hour
+
+---
 
 Number and name of feature: Error Handling
 
