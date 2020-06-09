@@ -44,7 +44,6 @@ app.get('/location', (request, response) => {
 });
 
 // Weather Route
-// TODO - update this for more than 1 location
 app.get('/weather', (request, response) => {
   try{
     let search_query = request.query.search_query;
