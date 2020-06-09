@@ -48,11 +48,9 @@ app.get('/weather', (request, response) => {
     // get the weather json data
     let weatherData = require('./data/weather.json');
 
-    // Empty array to store the weather info
-    let returnArray = [];
-    // push the weather info (as an object) into the the array
-    weatherData.data.forEach(value => {
-      returnArray.push(new Weather(value));
+    // Use map to put the weather objects into output array.
+    const returnArray = weatherData.data.map(value => {
+      return new Weather(value);
     });
 
     // Return the array to the front
@@ -62,6 +60,7 @@ app.get('/weather', (request, response) => {
   }
 });
 
+// Catch all for a route that isn't defined
 app.get('*', (request, response) => {
   response.status(404).send('sorry, this route does not exist');
 })

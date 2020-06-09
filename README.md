@@ -203,7 +203,7 @@ Actual time needed to complete: 15 minutes
 
 Number and name of feature: Data Formatting
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 30 minutes
 
 Start time: _____
 
