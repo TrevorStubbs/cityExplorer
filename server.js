@@ -4,12 +4,15 @@
 const express = require('express');
 const app = express();
 
-// configure the .env
+// Import and configure the .env
 require('dotenv').config();
 
 // import cors
 const cors = require('cors');
 app.use(cors());
+
+//Import superagent
+const superagent = require('superagent');
 
 // define the port if not 3001 if there is an error
 const PORT = process.env.PORT || 3001;
@@ -24,16 +27,17 @@ app.get('/', (request, response) => {
 app.get('/location', (request, response) => {
   try{
     // get the city the user requested
-    let search_query = request.query.city;
+    let city = request.query.city;
 
-    // get the location json data
-    let geoData = require('./data/location.json');
+    // grab the url and put in the API key
+    let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json`;
 
-    // Pass the requested city through the constructor
-    let returnObj = new Location(search_query, geoData[0]);
+    superagent.get(url)
+      .then(superAgentOutput => {
+        let responseObject = new Location(city, superAgentOutput.body[0]);
+        response.status(200).send(responseObject);
+      }).catch(err => console.log(err));
 
-    //return the data to the front end
-    response.status(200).send(returnObj);
   } catch(err){
     errorMessage(response, err);
   }

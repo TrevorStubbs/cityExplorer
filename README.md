@@ -205,16 +205,16 @@ Number and name of feature: Data Formatting
 
 Estimate of time needed to complete: 30 minutes
 
-Start time: _____
+Start time: 14:55
 
-Finish time: _____
+Finish time: 15:05
 
-Actual time needed to complete: _____
+Actual time needed to complete: 10 minutes
 Number and name of feature: Locations API
 
 Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 15:10
 
 Finish time: _____
 
