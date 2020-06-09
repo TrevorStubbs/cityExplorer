@@ -153,7 +153,7 @@ Number and name of feature: Repo Setup
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 13:00
+Start time: 15:00
 
 Finish time: 16:10
 
