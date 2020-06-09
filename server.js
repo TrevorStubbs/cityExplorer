@@ -49,7 +49,9 @@ app.get('/weather', (request, response) => {
     // Empty array to store the weather info
     let returnArray = [];
     // push the weather info (as an object) into the the array
-    returnArray.push(new Weather(weatherData.data[0]));
+    weatherData.data.forEach(value => {
+      returnArray.push(new Weather(value));
+    });
 
     // Return the array to the front
     response.status(200).send(returnArray);
