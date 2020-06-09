@@ -197,6 +197,43 @@ Finish time: 18:15
 
 Actual time needed to complete: 15 minutes
 
-## Lab 07 -
+## Lab 07 - Day 2
 
 - ![Whiteboard layout](images/lab07whiteboard.png)
+
+Number and name of feature: Data Formatting
+
+Estimate of time needed to complete: 30 minutes
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+Number and name of feature: Locations API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+Number and name of feature: Weather API
+
+Estimate of time needed to complete: 1 hour 
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+Number and name of feature: Trails API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
