@@ -174,9 +174,9 @@ Estimate of time needed to complete: 30 minutes
 
 Start time: 16:55
 
-Finish time: _____
+Finish time: 18:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1.1 hour
 
 Number and name of feature: Error Handling
 
