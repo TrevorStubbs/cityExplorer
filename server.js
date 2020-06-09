@@ -16,22 +16,41 @@ app.get('/', (request, response) => {
 });
 
 app.get('/location', (request, response) => {
-  console.log(request.query.city);
+  // console.log(request.query.city);
   let search_query = request.query.city;
 
   let geoData = require('./data/location.json');
-  console.log(geoData);
+  // console.log(geoData);
   let returnObj = new Location(search_query, geoData[0]);
-  console.log(returnObj);
+  // console.log(returnObj);
 
   response.status(200).send(returnObj);
 });
+
+app.get('/weather', (request, response) => {
+  // console.log(request);
+  console.log('AM I ALIVE');
+  let weatherData = require('./data/weather.json');
+
+  console.log(weatherData.data[0].weather.description);
+  let returnArray = [];
+  returnArray.push(new Weather(weatherData.data[0]));
+   
+  console.log(returnArray)
+
+  response.status(200).send(returnArray);
+})
 
 function Location(searchQuery, obj){
   this.search_query = searchQuery;
   this.formatted_query = obj.display_name;
   this.latitude = obj.lat;
   this.longitude = obj.lon;
+}
+
+function Weather(obj){
+  this.forecast = obj.weather.description;
+  this.time = new Date(obj.valid_date).toDateString();
 }
 
 app.listen(PORT, () =>{

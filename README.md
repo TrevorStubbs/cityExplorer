@@ -162,17 +162,17 @@ Number and name of feature: Location Data Linked
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 16:16
+Start time: 16:15
 
-Finish time: _____
+Finish time: 16:50
 
-Actual time needed to complete: _____
+Actual time needed to complete: 35 minutes
 
 Number and name of feature: Weather Data Linked
 
 Estimate of time needed to complete: 30 minutes
 
-Start time: _____
+Start time: 16:55
 
 Finish time: _____
 
