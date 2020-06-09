@@ -1,46 +1,56 @@
 'use strict';
 
+// Import express
 const express = require('express');
 const app = express();
 
+// configure the .env
 require('dotenv').config();
 
+// import cors
 const cors = require('cors');
 app.use(cors());
 
+// define the port if not 3001 if there is an error
 const PORT = process.env.PORT || 3001;
 
+// Testing the home route
 app.get('/', (request, response) => {
   console.log('Am I on the console?');
   response.status(200).send('Am I on the browser?');
 });
 
+// Location route
 app.get('/location', (request, response) => {
-  // console.log(request.query.city);
+  // get the city the user requested
   let search_query = request.query.city;
 
+  // get the location json data
   let geoData = require('./data/location.json');
-  // console.log(geoData);
+  
+  // Pass the requested city throught the constructor
   let returnObj = new Location(search_query, geoData[0]);
-  // console.log(returnObj);
-
+  
+  //return the data to the front end
   response.status(200).send(returnObj);
 });
 
+// Weather Route
+// TODO - update this for more than 1 location
 app.get('/weather', (request, response) => {
-  // console.log(request);
-  console.log('AM I ALIVE');
+  // get the weather json data
   let weatherData = require('./data/weather.json');
 
-  console.log(weatherData.data[0].weather.description);
+  // Empty array to store the weather info
   let returnArray = [];
+  // push the weather info (as an object) into the the array
   returnArray.push(new Weather(weatherData.data[0]));
    
-  console.log(returnArray)
-
+  // Return the array to the front
   response.status(200).send(returnArray);
 })
 
+// Location Construtor function (searchQuery is the city we are looking for)
 function Location(searchQuery, obj){
   this.search_query = searchQuery;
   this.formatted_query = obj.display_name;
@@ -48,11 +58,14 @@ function Location(searchQuery, obj){
   this.longitude = obj.lon;
 }
 
+// Weather constructor function
+//TODO- will probably need to pass in the city info as an arg tomorrow
 function Weather(obj){
   this.forecast = obj.weather.description;
   this.time = new Date(obj.valid_date).toDateString();
 }
 
+// Start the server
 app.listen(PORT, () =>{
   console.log(`listening on ${PORT}.`);
 });
