@@ -246,3 +246,39 @@ Start time: 17:00
 Finish time: 17:50
 
 Actual time needed to complete: 50minutes
+
+## Lab 8 - Day 3
+
+Number and name of feature: Database
+
+Estimate of time needed to complete: 30 minutes
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+---
+
+Number and name of feature: Server
+
+Estimate of time needed to complete: 1 hour
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+---
+
+Number and name of feature: Deploy
+
+Estimate of time needed to complete: 30 minutes
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
