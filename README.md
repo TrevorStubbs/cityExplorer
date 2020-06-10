@@ -241,8 +241,8 @@ Number and name of feature: Trails API
 
 Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 17:00
 
-Finish time: _____
+Finish time: 17:50
 
-Actual time needed to complete: _____
+Actual time needed to complete: 50minutes
