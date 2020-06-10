@@ -253,11 +253,11 @@ Number and name of feature: Database
 
 Estimate of time needed to complete: 30 minutes
 
-Start time: _____
+Start time: 16:35
 
-Finish time: _____
+Finish time: 17:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 25 minutes
 
 ---
 
