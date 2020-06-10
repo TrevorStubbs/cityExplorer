@@ -7,6 +7,9 @@ const app = express();
 // Import and configure the .env
 require('dotenv').config();
 
+// Import pg
+const pg = require('pg');
+
 // import cors
 const cors = require('cors');
 app.use(cors());
@@ -38,6 +41,7 @@ app.get('/location', (request, response) => {
         // make a variable with the object to be sent to as the response
         let responseObject = new Location(city, superAgentOutput.body[0]);
         // the response to the get call
+        console.log(responseObject);
         response.status(200).send(responseObject);
       }).catch(err => console.log(err));
 
