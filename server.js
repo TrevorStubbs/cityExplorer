@@ -28,28 +28,6 @@ app.get('/', (request, response) => {
   response.status(200).send('Am I on the browser?');
 });
 
-/////-----------WIP---------
-
-// client is going to ask for a location
-// check the database if its there
-    // if its there return that info into the constructor
-    // if its not there do the superagent call and then pass it into the constructor and it to the database
-// app.get('/add', (request, response) => {
-//   // collect information to add to our database
-//   console.log('on the add route', request.query);
-//   let search_query = 'lynnwood'
-//   let formatted_query = 'Lynnwood, Snohomish County, Washington, USA'
-//   let latitude = '33.924831';
-//   let longitude = '-118.2024154';
-
-//   let sqlQuery = 'INSERT INTO locations (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4);'; // need 2 ;
-//   let safeValue = [search_query, formatted_query, latitude, longitude];
-
-//   client.query(sqlQuery, safeValue)
-//     .then(() => {})
-//     .catch()
-// })
-
 app.get('/select', (request, response) => {
 // see everyone in the database
 //-------------------Test-------------------------
@@ -70,20 +48,41 @@ app.get('/location', (request, response) => {
   try{
     // get the city the user requested
     let city = request.query.city;
-
-    
     // grab the url and put in the API key
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json`;
+    // Setup the SQL query
+    let sqlQuery = `SELECT * FROM locations WHERE search_query='${city}';`;
+    
+    // query the database to see if the city is already there
+    client.query(sqlQuery)
+      .then(sqlResults => {
+        if(sqlResults.rowCount > 0){
+          // if there return it to the front
+          response.status(200).send(sqlResults.rows[0]);
+        } else{
+          // since it's not there we will grab it from the api
+          superagent.get(url)
+            .then(superAgentOutput => {
+              // make a variable with the object to be sent to as the response
+              let responseObject = new Location(city, superAgentOutput.body[0]);
+              // set up a SQL to put the new location into the database
+              let sqlQuery = 'INSERT INTO locations (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4);';
+              // The Safe Values
+              let safeValue = [
+                responseObject.search_query,
+                responseObject.formatted_query,
+                responseObject.latitude,
+                responseObject.longitude];
+    
+              // put the location into the database
+              client.query(sqlQuery, safeValue)
+                .then(() => {}).catch()
 
-    // Have superagent get the info from the URL, put it into the constructor and send it to the front end
-    superagent.get(url)
-      .then(superAgentOutput => {
-        // make a variable with the object to be sent to as the response
-        let responseObject = new Location(city, superAgentOutput.body[0]);
-        // the response to the get call
-        console.log(responseObject);
-        response.status(200).send(responseObject);
-      }).catch(err => console.log(err));
+              // Return the object to the front end.
+              response.status(200).send(responseObject);
+            }).catch(err => console.log(err));
+        }
+      }).catch();
 
   } catch(err){
     errorMessage(response, err);
@@ -159,6 +158,14 @@ function Location(searchQuery, obj){
   this.formatted_query = obj.display_name;
   this.latitude = obj.lat;
   this.longitude = obj.lon;
+}
+
+//Query Constructor
+function QueryLocation(obj){
+  this.search_query = obj.search_query;
+  this.formatted_query = obj.formatted_query;
+  this.latitude = obj.latitude;
+  this.longitude = obj.longitude;
 }
 
 // Weather constructor function
