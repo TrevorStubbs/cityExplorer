@@ -282,3 +282,40 @@ Start time: _____
 Finish time: _____
 
 Actual time needed to complete: _____
+
+## Lab 09 - Day 4
+- ![Whiteboard layout](images/cityexplorerDay9.png)
+
+Number and name of feature: Movies API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+---
+
+Number and name of feature: Restaurants API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+---
+
+Number and name of feature: Pagination of restaurants
+
+Estimate of time needed to complete: _____
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____

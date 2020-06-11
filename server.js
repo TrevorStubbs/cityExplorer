@@ -28,8 +28,8 @@ app.get('/', (request, response) => {
   response.status(200).send('Am I on the browser?');
 });
 
+// Test the database
 app.get('/select', (request, response) => {
-// see everyone in the database
 //-------------------Test-------------------------
   console.log('1st here');
   let sqlQuery = 'SELECT * FROM locations;';
@@ -50,30 +50,34 @@ app.get('/location', (request, response) => {
     let city = request.query.city;
     // grab the url and put in the API key
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json`;
-    // Setup the SQL query
-    let sqlQuery = `SELECT * FROM locations WHERE search_query='${city}';`;
     
+    // Setup the SQL query
+    let sqlQuery = 'SELECT * FROM locations WHERE search_query like ($1);';
+    let safeValue = [city];
+
     // query the database to see if the city is already there
-    client.query(sqlQuery)
+    client.query(sqlQuery, safeValue)
       .then(sqlResults => {
         if(sqlResults.rowCount > 0){
+          let outputObject = new QueryLocation(sqlResults.rows[0]);
           // if there return it to the front
-          response.status(200).send(sqlResults.rows[0]);
+          response.status(200).send(outputObject);
         } else{
           // since it's not there we will grab it from the api
           superagent.get(url)
             .then(superAgentOutput => {
               // make a variable with the object to be sent to as the response
               let responseObject = new Location(city, superAgentOutput.body[0]);
-              // set up a SQL to put the new location into the database
+              // set up a SQL query to put the new location into the database
               let sqlQuery = 'INSERT INTO locations (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4);';
               // The Safe Values
               let safeValue = [
                 responseObject.search_query,
                 responseObject.formatted_query,
                 responseObject.latitude,
-                responseObject.longitude];
-    
+                responseObject.longitude
+              ];
+
               // put the location into the database
               client.query(sqlQuery, safeValue)
                 .then(() => {}).catch()
@@ -96,7 +100,7 @@ app.get('/weather', (request, response) => {
     let search_query = request.query.search_query;
 
     // grab the url and put in the API key
-    let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${search_query}&key=${process.env.WEATHER_API_KEY}`
+    let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${search_query}&key=${process.env.WEATHER_API_KEY}&days=8`;
 
     // Have superagent get the info from the URL, put it into the constructor and send it to the front end
     superagent.get(url)
