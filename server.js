@@ -22,7 +22,7 @@ const superagent = require('superagent');
 // define the port if not 3001 if there is an error
 const PORT = process.env.PORT || 3001;
 
-// Testing the home route
+// Testing the server with the home route
 app.get('/', (request, response) => {
   console.log('Am I on the console?');
   response.status(200).send('Am I on the browser?');
@@ -30,14 +30,10 @@ app.get('/', (request, response) => {
 
 // Test the database
 app.get('/select', (request, response) => {
-//-------------------Test-------------------------
-  console.log('1st here');
   let sqlQuery = 'SELECT * FROM locations;';
 
-  console.log('2nd here');
   client.query(sqlQuery)
     .then(sqlResults => {
-      console.log('3rd HERE?', sqlResults.rowCount);
       response.status(200).send(sqlResults.rows);
     })
     .catch()
@@ -50,7 +46,7 @@ app.get('/location', (request, response) => {
     let city = request.query.city;
     // grab the url and put in the API key
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json`;
-    
+
     // Setup the SQL query
     let sqlQuery = 'SELECT * FROM locations WHERE search_query like ($1);';
     let safeValue = [city];
@@ -145,6 +141,35 @@ app.get('/trails', (request, response) => {
   }
 })
 
+app.get('/movies', (request, response) => {
+  try {
+    // Define what we want from the front end
+    let city = request.query.search_query;
+    // Define the api url
+    let url = 'https://api.themoviedb.org/3/search/movie';
+
+    // Define the query params
+    const queryParams = {
+      api_key: process.env.MOVIE_API_KEY,
+      query: city,
+      limit: 20
+    }
+
+    // Have superagent get the movies from the database
+    superagent(url)
+      // using the defined params
+      .query(queryParams)
+      .then(data => {
+        // map the data into an array
+        let moviesArray = data.body.results.map(value => new Movie(value));
+        //output the array to the front end
+        response.status(200).send(moviesArray);
+      }).catch(err => console.log(err));
+  } catch(err){
+    errorMessage(response, err);
+  }
+})
+
 // Catch all for a route that isn't defined
 app.get('*', (request, response) => {
   response.status(404).send('sorry, this route does not exist');
@@ -190,6 +215,17 @@ function Trail(obj){
   this.conditions = obj.conditionStatus
   this.condition_date = new Date(obj.conditionDate).toDateString();
   this.condition_time = obj.conditionDate.slice(11);
+}
+
+// movie constructor
+function Movie(obj){
+  this.title = obj.original_title;
+  this.overview = obj.overview;
+  this.average_votes = obj.vote_average;
+  this.total_votes = obj.vote_count;
+  this.image_url = `https://image.tmdb.org/t/p/w500/${obj.poster_path}`;
+  this.popularity = obj.popularity;
+  this.released_on = obj.release_date;
 }
 
 // Start the server
