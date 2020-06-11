@@ -170,6 +170,46 @@ app.get('/movies', (request, response) => {
   }
 })
 
+
+// Yelp route
+app.get('/yelp', (request, response) => {
+  try{
+    // Get the yelp api url
+    let url = `https://api.yelp.com/v3/businesses/search`;
+
+    // Setup pagination
+    const page = request.query.page;
+    const numPerPage = 5;
+    const start = (page - 1) * numPerPage;
+
+    // set the parameters needed for the search
+    const queryParams = {
+      latitude: request.query.latitude,
+      longitude: request.query.longitude,
+      limit: numPerPage,
+      offset: start
+    }
+
+    // have superagent query the api
+    superagent.get(url)
+      // Header for api key
+      .set('Authorization', `Bearer ${process.env.YELP_API_KEY}`)
+      // put the params into the query
+      .query(queryParams)
+      .then( data => {
+        // Fill an array full of the restaurants
+        let restaurantsArray = data.body.businesses.map(value =>{
+          return new Restaurant(value);
+        })
+
+        // Return the array to the front end
+        response.status(200).send(restaurantsArray);
+      })
+  } catch(err){
+    errorMessage(response, err);
+  }
+});
+
 // Catch all for a route that isn't defined
 app.get('*', (request, response) => {
   response.status(404).send('sorry, this route does not exist');
@@ -226,6 +266,15 @@ function Movie(obj){
   this.image_url = `https://image.tmdb.org/t/p/w500/${obj.poster_path}`;
   this.popularity = obj.popularity;
   this.released_on = obj.release_date;
+}
+
+// restaurant constructor
+function Restaurant(obj){
+  this.name = obj.name
+  this.image_url = obj.image_url
+  this.price = obj.price
+  this.rating = obj.rating
+  this.url = obj.url
 }
 
 // Start the server

@@ -302,20 +302,20 @@ Number and name of feature: Restaurants API
 
 Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 15:00
 
-Finish time: _____
+Finish time: 16:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hour
 
 ---
 
 Number and name of feature: Pagination of restaurants
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 16:00
 
-Finish time: _____
+Finish time: 17:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hour
