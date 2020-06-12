@@ -120,7 +120,7 @@ _Your `README.md` must include:_
 This is a site that allows a user to enter in a city and it will return a list of information about the city
 
 ## Getting Started
-This is the server side program. To use you must go to [City Explorer Front End](https://codefellows.github.io/code-301-guide/curriculum/city-explorer-app/front-end/) and enter in your server info. 
+This is the server side program. To use you must go to [City Explorer Front End](https://codefellows.github.io/code-301-guide/curriculum/city-explorer-app/front-end/) and enter in your server info. must start the SQL database to make it work.
 
 ## Architecture
 This project is build using JavaScript, Node.js, Express, DOTENV, CORS and Heroku.
